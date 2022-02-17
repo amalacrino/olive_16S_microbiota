@@ -26,6 +26,7 @@ library("ggplot2")
 library("MuMIn")
 library("emmeans")
 library("ggpubr")
+library("NetCoMi")
 ```
 
 ### Clean data
