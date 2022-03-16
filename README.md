@@ -216,46 +216,6 @@ ps.leaves.ott <- phyloseq::subset_samples(ps.16S, Sample_type == "Leaves" & Vari
 ps.soil.sin <- phyloseq::subset_samples(ps.16S, Sample_type == "Soil" & Variety == "Sinopolese")
 ps.soil.ott <- phyloseq::subset_samples(ps.16S, Sample_type == "Soil" & Variety == "Ottobratica")
 
-netFun <- function(x, y, method){
-  net_seas_p <- netConstruct(x, y,
-                           filtTax = "highestVar",
-                           filtTaxPar = list(highestVar = 500),
-                           zeroMethod = "pseudo",
-                           normMethod = "clr",
-                           measure = method,
-                           cores = ncores,
-                           verbose = 0)
-network <- netAnalyze(net_seas_p, clustMethod = "cluster_fast_greedy", weightDeg = TRUE, normDeg = FALSE)
-return(network)      
-}
-
-netPlot <- function(x, g1, g2){
-        nclust <- as.numeric(max(names(table(x$clustering$clust1))))
-        col <- topo.colors(nclust)
-        plot(x, 
-             sameLayout = TRUE, 
-             layoutGroup = "union", 
-             colorVec = col,
-             borderCol = "gray40", 
-             nodeSize = "degree", 
-             cexNodes = 0.9, 
-             nodeSizeSpread = 3, 
-             edgeTranspLow = 80, 
-             edgeTranspHigh = 50,
-             groupNames = c(g1, g2), 
-             showTitle = TRUE, 
-             cexTitle = 2.8,
-             mar = c(1,1,3,1), 
-             repulsion = 0.9, 
-             labels = FALSE, 
-             rmSingles = "inboth",
-             nodeFilter = "clustMin", 
-             nodeFilterPar = 10, 
-             nodeTransp = 50, 
-             hubTransp = 30)
-        
-}
-
 netTest <- function(x, g1, g2){
         comp_net <- netCompare(x, permTest = FALSE, verbose = FALSE, cores = ncores)
         a <- summary(comp_net, 
@@ -263,48 +223,6 @@ netTest <- function(x, g1, g2){
                 showCentr = c("degree", "between", "closeness"), 
                 numbNodes = 5)
         return(a)
-}
-
-netDiffPlot <- function(x, y, g1, g2, method){
-        net_season_pears <- netConstruct(x, y, 
-                                 filtTax = "highestVar",
-                                 filtTaxPar = list(highestVar = 50),
-                                 measure = method, 
-                                 normMethod = "clr",
-                                 sparsMethod = "none", 
-                                 thresh = 0.2,
-                                 cores = ncores,
-                                 verbose = 3)
-        
-        diff_season <- diffnet(net_season_pears,
-                       diffMethod = "fisherTest", 
-                       adjust = "lfdr")
-        
-        props_season_pears <- netAnalyze(net_season_pears, 
-                                 clustMethod = "cluster_fast_greedy",
-                                 weightDeg = TRUE,
-                                 normDeg = FALSE)
-        
-        diffmat_sums <- rowSums(diff_season$diffAdjustMat)
-        diff_asso_names <- names(diffmat_sums[diffmat_sums > 0])
-        
-        plot(props_season_pears, 
-             nodeFilter = "names",
-             nodeFilterPar = diff_asso_names,
-             nodeColor = "gray",
-             highlightHubs = FALSE,
-             sameLayout = TRUE, 
-             layoutGroup = "union",
-             rmSingles = FALSE, 
-             nodeSize = "clr",
-             edgeTranspHigh = 20,
-             labelScale = FALSE,
-             cexNodes = 0.9, 
-             cexLabels = 1,
-             cexTitle = 2.8,
-             groupNames = c(g1, g2),
-             hubBorderCol  = "gray40")
-        return(diff_asso_names)
 }
 
 ```
