@@ -203,7 +203,7 @@ Anova(model.dsq)
 ```
 
 ### Network analysis -- functions
-```{r, warning=FALSE, message=FALSE, echo=FALSE}
+```R
 ncores = 8
 taxa <- as.data.frame(tax_table(ps.16S))
 taxa <- setDT(taxa, keep.rownames = TRUE)[]
