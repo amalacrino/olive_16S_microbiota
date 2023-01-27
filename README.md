@@ -228,7 +228,7 @@ netTest <- function(x, g1, g2){
 ```
 
 ### Network analysis -- fruits
-```{r, warning=FALSE, message=FALSE, echo=FALSE}
+```R
 psObj1 <- ps.fruits.sin
 psObj2 <- ps.fruits.ott
 grNet1 <- "Sinopolese"
@@ -237,7 +237,7 @@ netTest(network, grNet1, grNet2)
 ```
 
 ### Network analysis -- leaves
-```{r, warning=FALSE, message=FALSE, echo=FALSE}
+```R
 psObj1 <- ps.leaves.sin
 psObj2 <- ps.leaves.ott
 grNet1 <- "Sinopolese"
@@ -246,7 +246,7 @@ netTest(network, grNet1, grNet2)
 ```
 
 ### Network analysis -- soil
-```{r, warning=FALSE, message=FALSE, echo=FALSE}
+```R
 psObj1 <- ps.soil.sin
 psObj2 <- ps.soil.ott
 grNet1 <- "Sinopolese"
